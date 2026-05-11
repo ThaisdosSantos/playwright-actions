@@ -38,7 +38,7 @@ test.describe('Login', () => {
 
     await expectToast(
       page,
-      'Oops! Credenciais inválidas :('
+      'Oops! senha incorreta :('
     )
   })
 

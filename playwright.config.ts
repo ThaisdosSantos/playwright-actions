@@ -31,8 +31,11 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     baseURL: 'https://loginxp.vercel.app',
-    // Gerar Evidência em video para cada teste, mesmo os que passarem de primeira. --- IGNORE ---
+    // Generate video evidence for each executed test
     video: 'on',
+
+    // Capture screenshots only on test failures
+    screenshot: 'only-on-failure',
   },
 
   /* Configure projects for major browsers */
