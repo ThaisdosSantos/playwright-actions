@@ -53,6 +53,11 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
+        {
+      name: 'Edge',
+      use: { ...devices['Desktop Edge'] },
+    },
+
 
     
 
