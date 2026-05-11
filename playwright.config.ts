@@ -1,91 +1,106 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
+ * Playwright configuration file.
+ *
+ * This configuration defines:
+ * - test directory
+ * - browser projects
+ * - retry strategy
+ * - screenshots and video evidence
+ * - HTML reports
+ * - CI/CD behavior
  */
 export default defineConfig({
+  /**
+   * Directory where the test files are located.
+   */
   testDir: './e2e',
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+  /**
+   * Run tests in parallel.
+   */
+  fullyParallel: true,
+
+  /**
+   * Prevent accidentally committed test.only in CI.
+   */
+  forbidOnly: !!process.env.CI,
+
+  /**
+   * Retry failed tests only in CI environment.
+   */
+  retries: process.env.CI ? 2 : 0,
+
+  /**
+   * Use a single worker in CI to improve stability.
+   */
+  workers: process.env.CI ? 1 : undefined,
+
+  /**
+   * Generate HTML test reports.
+   */
+  reporter: 'html',
+
+  /**
+   * Shared settings for all browser projects.
+   */
+  use: {
+    /**
+     * Base application URL.
+     */
     baseURL: 'https://loginxp.vercel.app',
-    // Generate video evidence for each executed test
+
+    /**
+     * Collect execution trace on first retry.
+     */
+    trace: 'on-first-retry',
+
+    /**
+     * Record video evidence for all executed tests.
+     */
     video: 'on',
 
-    // Capture screenshots only on test failures
+    /**
+     * Capture screenshots only when tests fail.
+     */
     screenshot: 'only-on-failure',
   },
 
-  /* Configure projects for major browsers */
+  /**
+   * Browser configurations.
+   */
   projects: [
     {
+      /**
+       * Google Chrome / Chromium browser.
+       */
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    
-    {
+      /**
+       * Mozilla Firefox browser.
+       */
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-        {
-      name: 'Edge',
-      use: { ...devices['Desktop Edge'] },
+
+    {
+      /**
+       * Safari / WebKit browser.
+       */
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
 
-
-    
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      /**
+       * Microsoft Edge browser.
+       */
+      name: 'edge',
+      use: { ...devices['Desktop Edge'] },
+    },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
