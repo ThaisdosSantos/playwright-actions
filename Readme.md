@@ -216,5 +216,6 @@ Projeto desenvolvido para estudos, práticas e evolução em QA Automation, util
 - https://playwright.dev/
 - https://github.com/microsoft/playwright
 - https://docs.github.com/actions
+- https://github.com/qaxperience/playwright-actions-template
 
 ---
